@@ -1,0 +1,33 @@
+# Serveur MCP Chronodrive (non officiel, y-vex/chronodrive-mcp).
+# Le serveur parle stdio ; mcp-proxy l'expose en HTTP/SSE pour Home Assistant.
+#
+#   docker compose up -d --build
+#   curl -N http://localhost:8096/sse     # doit renvoyer "event: endpoint"
+#   docker compose logs -f chronodrive
+
+services:
+  chronodrive:
+    image: chronodrive-mcp:local
+    build:
+      context: .
+      args:
+        CHRONODRIVE_MCP_REF: main   # remplacez par un tag ou un commit pour figer la version
+    ports:
+      - "8099:8096"   # Home Assistant -> http://<ip-de-l-hote>:8096/sse (ne pas exposer sur Internet)
+    environment:
+      CHRONODRIVE_EMAIL: ${CHRONODRIVE_EMAIL:?renseignez CHRONODRIVE_EMAIL dans .env}
+      CHRONODRIVE_PASSWORD: ${CHRONODRIVE_PASSWORD:?renseignez CHRONODRIVE_PASSWORD dans .env}
+      CHRONODRIVE_STORE_ID: ${CHRONODRIVE_STORE_ID:?renseignez CHRONODRIVE_STORE_ID dans .env}
+    volumes:
+      - /Stockage_1/all/mcpchrono:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+#volumes:
+#  chronodrive-data:
