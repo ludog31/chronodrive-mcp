@@ -19,7 +19,7 @@ services:
       CHRONODRIVE_PASSWORD: ${CHRONODRIVE_PASSWORD:?renseignez CHRONODRIVE_PASSWORD dans .env}
       CHRONODRIVE_STORE_ID: ${CHRONODRIVE_STORE_ID:?renseignez CHRONODRIVE_STORE_ID dans .env}
     volumes:
-      - /Stockage_1/all/mcpchrono2:/data
+      - /Stockage_1/all/mcpchrono3:/data
     read_only: true
     tmpfs:
       - /tmp
