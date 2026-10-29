@@ -13,7 +13,7 @@ services:
       args:
         CHRONODRIVE_MCP_REF: main   # remplacez par un tag ou un commit pour figer la version
     ports:
-      - "8092:8096"   # Home Assistant -> http://<ip-de-l-hote>:8096/sse (ne pas exposer sur Internet)
+      - "8093:8096"   # Home Assistant -> http://<ip-de-l-hote>:8096/sse (ne pas exposer sur Internet)
     environment:
       CHRONODRIVE_EMAIL: ${CHRONODRIVE_EMAIL:?renseignez CHRONODRIVE_EMAIL dans .env}
       CHRONODRIVE_PASSWORD: ${CHRONODRIVE_PASSWORD:?renseignez CHRONODRIVE_PASSWORD dans .env}
